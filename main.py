@@ -1,6 +1,6 @@
 #!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
 
-speed = 0 #options: 0 = OFF, 1, 2, 3 = SLOW
+speed = 1 #options: 0 = OFF, 1, 2, 3 = SLOW
 
 ##################################################################
 
@@ -10,6 +10,7 @@ loadings = True
 z = 1
 def load_time():
 	global z
+	global loadings
 	if speed == 0:
 		loadings = False
 	if speed == 1:
@@ -21,7 +22,7 @@ def load_time():
 	x = randint(1, z)
 	if loadings == False:
 		return(0)
-	elif loadings == True:
+	if loadings == True:
 		return(x/10)
 
 if loadings == False:
@@ -54,18 +55,24 @@ print('Initializing...')
 time.sleep(load_time())
 print('Importing dependencies...')
 
-try:
-	data = pickle.load(open("data.dat", "rb"))
-	print('Data successfullying imported...')
-except FileNotFoundError:
-	print('Data.dat file not found or corrupted, please run clean.py to create new blank file...')
-	sys.exit()
+def load():
+	global local 
+	global tasks
+	global users
+	try:
+		data = pickle.load(open("data.dat", "rb"))
+		print('Data successfullying imported...')
+	except FileNotFoundError:
+		print('Data.dat file not found or corrupted, please run clean.py to create new blank file...')
+		sys.exit()
+	local = data[0]
+	tasks = data[1]
+	users = data[2]
 
-local = data[0]
-tasks = data[1]
-users = data[2]
 time.sleep(load_time())
 print('Data decrpyted...')
+
+load()
 
 time.sleep(load_time())
 print('Launched.')
@@ -79,10 +86,9 @@ def save():
 	pickle.dump(save_data, open("data.dat", "wb"))
 
 if local['new'] == True:
-	print("Welcome to DosProfiler, running intial setup installation scripts...")
-	local['new'] = False
-	os.system('cd .. && sudo chmod +x DosProfiler/*')
-	save()
+	print("Please run setup.py script...")
+	sys.exit('Closed with error; setup.py not run.')
+	
 
 close = False
 while close == False:

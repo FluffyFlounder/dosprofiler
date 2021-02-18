@@ -22,8 +22,18 @@ users = {
 	
 }
 
+skip = False
 
-input_ = input('Are you sure you want to wipe and reset?: ')
+
+
+if len(sys.argv) > 1 and sys.argv[1] == 'skip':
+	skip = True
+
+if skip == False:
+	input_ = input('Are you sure you want to wipe and reset?: ')
+if skip == True:
+	input_ = 'yes'
+	local['new'] = False
 
 data = [local, tasks, users]
 
