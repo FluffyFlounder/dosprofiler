@@ -2,10 +2,7 @@
 
 First time launch instructions:
 
-    cd ~
-    cd /path/to/dosprofiler/folder
-    chmod +x CLICKME
-    double click on the CLICKME file
+    1 sec
    
 You may be prompted to enter your password.
 If an error occurs, try running:
@@ -15,4 +12,4 @@ If an error occurs, try running:
     
 # How to run
 
-cd into the DosProfiler directory, double click launcher
+cd into the DosProfiler directory, run ./main.py
