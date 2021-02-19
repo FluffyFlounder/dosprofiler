@@ -26,11 +26,11 @@ skip = False
 
 if len(sys.argv) > 1 and sys.argv[1] == 'skip':
 	skip = True
-	_input = 'yes'
+	input_ = 'yes'
 if skip == False:
 	input_ = input('Are you sure you want to wipe and reset?: ')
 
-if input_ == 'yes' or input_ == 'y' or skip == True:
+if input_ == 'yes' or input_ == 'y':
 	time.sleep(0.2)
 	with open("data.dat",'wb') as x:
 		pickle.dump(data, x)
