@@ -1,6 +1,7 @@
 # Requirements
 
 Python3 or greater, built using python 3.8.5
+
 THIS PROGRAM IS DESIGNED FOR MAC ONLY, WINDOWS NOT EXCEPETED TO RUN
 
 #  Setup.py Installation Instructions
