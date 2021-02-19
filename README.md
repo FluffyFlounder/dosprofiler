@@ -6,6 +6,7 @@ THIS PROGRAM IS DESIGNED FOR MAC ONLY, WINDOWS NOT EXCEPETED TO RUN
 #  Setup.py Installation Instructions
 
 Run setup.py for an automatic installation of all dependencies and packages:
+    
     python3 setup.py
  
 If an error occurs, try a manual installation.
