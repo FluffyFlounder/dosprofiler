@@ -6,6 +6,10 @@ THIS PROGRAM IS DESIGNED FOR MAC ONLY, WINDOWS NOT EXCEPETED TO RUN
 
 #  Setup.py Installation Instructions
 
+CD into dosprofiler-main:
+
+    cd /path/to/dosprofiler-main
+
 Run setup.py for an automatic installation of all dependencies and packages:
     
     python3 setup.py
