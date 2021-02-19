@@ -1,5 +1,9 @@
 #!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
 
+#from configparser import ConfigParser
+#config = ConfigParser()
+#config.read('file.ini')
+#info = config.get('SETTINGS', 'email')
 speed = 1 #options: 0 = OFF, 1, 2, 3 = SLOW
 
 ##################################################################
