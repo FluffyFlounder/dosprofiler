@@ -1,15 +1,16 @@
 #!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
 
-#from configparser import ConfigParser
-#config = ConfigParser()
-#config.read('file.ini')
-#info = config.get('SETTINGS', 'email')
-speed = 1 #options: 0 = OFF, 1, 2, 3 = SLOW
+#import parser
+from configparser import ConfigParser
+config = ConfigParser()
+#set config file
+config.read('config.ini')
+#set variables from config file
+speed = config.get('SETTINGS', 'speed')
+key = config.get('SETTINGS', 'key')
 
-##################################################################
-
+#setup random timer to make loadings look cool
 from random import randint
-
 loadings = True
 z = 1
 def load_time():
@@ -29,65 +30,44 @@ def load_time():
 	if loadings == True:
 		return(x/10)
 
-if loadings == False:
-	x = 0
-
-try:
-	import time
-	print('Time module imported...')
-except NameError:
-	print("Time module not found, try 'pip3 install time'")
-
+#import libraries
+import time
+print('Time module imported...')
 time.sleep(load_time())
 
 import sys
 print('SYS module imported...')
-
 time.sleep(load_time())
 
-try:
-	import pickle
-	print("Pickle module imported...")
-except NameError:
-	print("Pickle module not found, try 'pip3 install pickle'")
+import pickle
+print("Pickle module imported...")
+time.sleep(load_time())
 
 import os
 print("OS module imported...")
-
 time.sleep(load_time())
-print('Initializing...')
-time.sleep(load_time())
-print('Importing dependencies...')
 
-def load():
-	global local 
-	global tasks
-	global users
-	try:
-		data = pickle.load(open("data.dat", "rb"))
-		print('Data successfullying imported...')
-	except FileNotFoundError:
-		print('Data.dat file not found or corrupted, please run clean.py to create new blank file...')
-		sys.exit()
-	local = data[0]
-	tasks = data[1]
-	users = data[2]
-
-time.sleep(load_time())
-print('Data decrpyted...')
-
-load()
+#load data from data.dat
+try:
+	data = pickle.load(open("data.dat", "rb"))
+	print('Data successfullying imported...')
+	time.sleep(load_time())
+except FileNotFoundError:
+	print("Data.dat file not found or corrupted, please run 'python3 clean.py' to create new file.")
+	sys.exit()
+local = data[0]
+tasks = data[1]
+users = data[2]
 
 time.sleep(load_time())
 print('Launched.')
-
 print("  _____            _____            __ _ _           \n |  __ \\          |  __ \\          / _(_) |          \n | |  | | ___  ___| |__) | __ ___ | |_ _| | ___ _ __ \n | |  | |/ _ \\/ __|  ___/ '__/ _ \\|  _| | |/ _ \\ '__|\n | |__| | (_) \\__ \\ |   | | | (_) | | | | |  __/ |   \n |_____/ \\___/|___/_|   |_|  \\___/|_| |_|_|\\___|_|\n")
 
-################################## Engine Launched ##############################
-
+#create save function to save the current local, tasks, users variables into data.dat
 def save():
 	save_data = [local, tasks, users]
 	pickle.dump(save_data, open("data.dat", "wb"))
+
 
 if local['new'] == True:
 	print("Please run setup.py script...")
@@ -96,8 +76,7 @@ if local['new'] == True:
 
 close = False
 while close == False:
-	task = input(': ')
-	task = task.split()
+	task = input(': ').split()
 	tasked = False
 
 	if task[0] == 'help':
@@ -145,7 +124,6 @@ while close == False:
 	if task[0] == 'clear':
 		os.system('clear')
 		tasked = True
-
 
 	if task[0] == 'useradd':
 		__continue__ = True
@@ -223,6 +201,6 @@ while close == False:
 
 
 
-
+	#if a valid command wasn't ran, tasked will stay == False, causing this to run:
 	if tasked == False:
 		print("Please enter a valid command, try 'help' for a list of commands.")
