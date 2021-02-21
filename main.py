@@ -70,11 +70,6 @@ print("  _____            _____            __ _ _           \n |  __ \\         
 def save():
 	save_data = [local, tasks, users]
 	pickle.dump(save_data, open("data.dat", "wb"))
-
-
-if local['new'] == True:
-	print("Please run setup.py script...")
-	sys.exit('Closed with error; setup.py not run.')
 	
 close = False
 while close == False:
@@ -103,7 +98,7 @@ while close == False:
 		print('}')
 		print('\nTASKS:\n            {')
 		for item in tasks:
-			print(f"    '{item}': '{tasks[item]}'")
+			print(f"    '{codec.decode(item)}': '{codec.decode(tasks[item])}'")
 		print('}')
 		print('\nUSERS:\n\n            {')
 		for item in users:
@@ -140,7 +135,6 @@ while close == False:
 				new_username = _user
 				users[new_username] = {}
 				tasked = True
-				print(users[new_username])
 			elif len(task) < 2: 
 				print("'useradd' requires 1 argument, 0 given")
 				tasked = True
