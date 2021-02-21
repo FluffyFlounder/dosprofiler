@@ -1,6 +1,6 @@
-print("Welcome to DosProfiler, running intial setup installation scripts...")
 import os
 import time
+print("Welcome to DosProfiler, running intial setup installation scripts...")
 os.system('cd .. && chmod +x dosprofiler-main/*')
 os.system('cd .. && chmod +x dosprofiler*')
 print('Folder granted executable access.')

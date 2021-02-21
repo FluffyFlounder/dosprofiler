@@ -1,5 +1,8 @@
 #!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
 
+import codec
+print('Codec.py imported...')
+
 #import parser
 from configparser import ConfigParser
 config = ConfigParser()
@@ -7,7 +10,7 @@ config = ConfigParser()
 config.read('config.ini')
 #set variables from config file
 speed = config.get('SETTINGS', 'speed')
-key = config.get('SETTINGS', 'key')
+
 
 #setup random timer to make loadings look cool
 from random import randint
@@ -73,7 +76,6 @@ if local['new'] == True:
 	print("Please run setup.py script...")
 	sys.exit('Closed with error; setup.py not run.')
 	
-
 close = False
 while close == False:
 	task = input(': ').split()
@@ -90,6 +92,9 @@ while close == False:
 		save()
 		sys.exit('Closed with task-exit.')
 
+	if task[0] == 'save':
+		save()
+		tasked = True
 
 	if task[0] == 'ls' and len(task) == 1:
 		print('\nLOCAL:\n            {')
@@ -100,11 +105,13 @@ while close == False:
 		for item in tasks:
 			print(f"    '{item}': '{tasks[item]}'")
 		print('}')
-		print('\nUSERS:\n            {')
+		print('\nUSERS:\n\n            {')
 		for item in users:
-			print(f"    '{item}': {users[item]}")
-		print('}')
-		print('\n')
+			_usrdict = users[item]
+			print(f"{codec.decode(item)}")
+			for info in _usrdict:
+				print(f"    '{codec.decode(info)}': {codec.decode(_usrdict[info])}")
+		print('}\n')
 		tasked = True
 
 	elif task[0] == 'ls' and len(task) > 1:
@@ -115,7 +122,7 @@ while close == False:
 			print('\nNameError, please enter a valid dictionary;')
 			continue_ = False
 		while tasked == False and continue_ == True:
-			print(f'\n{task[1].lower()}:\n            {{')
+			print(f'\n{task[1]}:\n            {{')
 			for item in temp_dict:
 				print(f"    '{item}': {temp_dict[item]}")
 			print('}\n')
@@ -127,20 +134,20 @@ while close == False:
 
 	if task[0] == 'useradd':
 		__continue__ = True
-		_user = task[1]
+		_user = codec.encode(task[1])
 		if __continue__ == True:
 			if len(task) > 1:
-				new_username = task[1]
+				new_username = _user
 				users[new_username] = {}
 				tasked = True
+				print(users[new_username])
 			elif len(task) < 2: 
 				print("'useradd' requires 1 argument, 0 given")
 				tasked = True
 
-
 	if task[0] == 'userdel':
 		__continue__ = True
-		_user = task[1]
+		_user = codec.encode(task[1])
 		if _user not in users:
 			print('Please enter a valid user or create a new profile.')
 			__continue__ = False
@@ -148,7 +155,7 @@ while close == False:
 		if __continue__ == True:
 			if len(task) > 1:
 				user = task[1]
-				del users[user]
+				del users[_user]
 				tasked = True
 			elif len(task) < 2:
 				print("'userdel' requires 1 argument, 0 given")
@@ -156,9 +163,9 @@ while close == False:
 
 	if task[0] == 'addinfo' and len(task) == 4:
 		__continue__ = True
-		_user = task[1]
-		_item = task[2]
-		_info = task[3]
+		_user = codec.encode(task[1])
+		_item = codec.encode(task[2])
+		_info = codec.encode(task[3])
 		if _user not in users:
 			print('Please enter a valid user or create a new profile.')
 			__continue__ = False
@@ -170,8 +177,8 @@ while close == False:
 
 	if task[0] == 'rminfo' and len(task) == 3:
 		__continue__ = True
-		_user = task[1]
-		_item = task[2]
+		_user = codec.encode(task[1])
+		_item = codec.encode(task[2])
 		if _user not in users:
 			print('Please enter a valid user or create a new profile.')
 			__continue__ = False
@@ -182,20 +189,6 @@ while close == False:
 			user_dict.pop(_item, None)
 			print('Done.')
 			tasked = True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

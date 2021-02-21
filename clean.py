@@ -1,21 +1,20 @@
 import pickle
 import time
 import sys
-from configparser import ConfigParser
-config = ConfigParser()
-config.read('config.ini')
+import codec
 
 tasks = {
-	'useradd [name]': 'Adds new profile',
-	'userdel [user]': 'Deletes a profile',
-	'addinfo [user] [item] [info]': 'Adds info about a subject',
-	'rminfo [user] [item]': "Deletes an item from a user's profile",
-	'close': 'Closes current instance of DosProfiler',
-	'ls [dict]': 'View all .dat data, or pass a specific table to view',
-	'clear': 'Clears the terminal output',
+	codec.encode('useradd [name]'): codec.encode('Adds new profile'),
+	codec.encode('userdel [user]'): codec.encode('Deletes a profile'),
+	codec.encode('addinfo [user] [item] [info]'): codec.encode('Adds info about a subject'),
+	codec.encode('rminfo [user] [item]'): codec.encode("Deletes an item from a user's profile"),
+	codec.encode('close'): codec.encode('Closes current instance of DosProfiler'),
+	codec.encode('ls [dict]'): codec.encode('View all .dat data, or pass a specific table to view'),
+	codec.encode('clear'): codec.encode('Clears the terminal output'),
+	codec.encode('save'): codec.encode('Saves .dat file'),
 }
 local = {
-	'new': False,
+	
 }
 users = {
 	
@@ -23,14 +22,17 @@ users = {
 
 data = [local, tasks, users]
 skip = False
+sub_run = False
+input_ = ''
 
-if len(sys.argv) > 1 and sys.argv[1] == 'skip':
-	skip = True
-	input_ = 'yes'
-if skip == False:
-	input_ = input('Are you sure you want to wipe and reset?: ')
+if not sub_run == True:
+	if len(sys.argv) > 1 and sys.argv[1] == 'skip':
+		skip = True
+		input_ = 'yes'
+	if skip == False:
+		input_ = input('Are you sure you want to wipe and reset?: ')
 
-if input_ == 'yes' or input_ == 'y':
+if input_ == 'yes' or input_ == 'y' or sub_run == True:
 	time.sleep(0.2)
 	with open("data.dat",'wb') as x:
 		pickle.dump(data, x)
