@@ -2,7 +2,7 @@
 
 import codec
 print('Codec.py imported...')
-
+import sys
 #import parser
 from configparser import ConfigParser
 config = ConfigParser()
@@ -10,6 +10,10 @@ config = ConfigParser()
 config.read('config.ini')
 #set variables from config file
 speed = config.get('SETTINGS', 'speed')
+key = config.get('SETTINGS', 'key')
+x = codec.decode(key)
+if not codec.decode(key) == 'bing_bong':
+	sys.exit()
 
 
 #setup random timer to make loadings look cool
