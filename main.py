@@ -12,8 +12,8 @@ config.read('config.ini')
 speed = config.get('SETTINGS', 'speed')
 key = config.get('SETTINGS', 'key')
 x = codec.decode(key)
-if not codec.decode(key) == 'bing_bong':
-	sys.exit()
+#if not codec.decode(key) == '6942':
+#	sys.exit()
 
 
 #setup random timer to make loadings look cool
@@ -74,6 +74,7 @@ print("  _____            _____            __ _ _           \n |  __ \\         
 def save():
 	save_data = [local, tasks, users]
 	pickle.dump(save_data, open("data.dat", "wb"))
+	print(f"File saved to: " + os.path.abspath("data.dat"))
 	
 close = False
 while close == False:
@@ -83,7 +84,7 @@ while close == False:
 	if task[0] == 'help':
 		print('')
 		for item in tasks:
-			print(f"{item} -- {tasks[item]}")
+			print(f"{codec.decode(item)} -- {codec.decode(tasks[item])}")
 		print('')
 		tasked = True
 
@@ -188,6 +189,13 @@ while close == False:
 			print('Done.')
 			tasked = True
 
+	if task[0] == 'encode' and len(task) > 1:
+		print(codec.encode(task[1]))
+		tasked = True
+
+	if task[0] == 'decode' and len(task) > 1:
+		print(codec.decode(task[1]))
+		tasked = True
 
 
 
